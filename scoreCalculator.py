@@ -28,13 +28,7 @@ def main():
 				points = int(row[2]) #if this doesn't work, it means it's an invalid row
 
 				if word[0] == ' ':
-					word = word[1:]
-
-				if "u'" in genre[:3]:
-					genre = genre[2:]
-
-				if "u'" in word[:3]:
-					word = word[2:]			
+					word = word[1:]		
 
 				# If a keyword appears twice in the same genre, keep the record with maximum points
 				if genre in genres.keys():
