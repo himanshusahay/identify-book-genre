@@ -6,3 +6,6 @@
 * A point value is given to each expected key words (keywords are in a CSV file)
 * The genre-fit score is calculated as: total num keyword matches * avg point value of the unique matching keywords
 * Book titles are printed alphabetically, with their three highest scoring genres and their respective scores.
+
+JSON representation of books is: [{'title': ...., 'description':....}, {'title': ...., 'description':....},...]
+In CSV file, use the representation: genre, keyword, point-value
