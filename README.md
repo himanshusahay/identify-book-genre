@@ -1,4 +1,4 @@
-# identify-book-genres
+# identify-book-genre
 ####Tool to help go through a list of books and identify the correct genre for each book. 
 
 **Approach:**
