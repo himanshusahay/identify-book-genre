@@ -87,17 +87,24 @@ def keywordChecker(book, genres):
 				#wd[1] is the point value of that word
 
 				for a in re.finditer(word, book['description']):
-					genre_scores[genre].append(wd[1]) ## WORKING HERE AND THE newL part
-					found.append(a.group(0))
+					genre_scores[genre].append(wd[1])
+					if a.group(0) not in found:
+						found.append(a.group(0)) #don't append duplicates because that's a waste of space. 
 
 				# There can also be other forms of a root word. For example, 'fought' is a form of 'fight'.
 				# Use the NLP module pattern.en to call lexeme(word) to get the list of possible forms of that word. Works for 2 word keywords too
 				allWords = lexeme(word)
 				for each in allWords:
-					if word not in each:
-						if each in book['description']:
-							genre_scores[genre].append(wd[1])
-							found.append(each)
+					# For the word 'fight', for example, the part where the word is being searched directly in the book, takes care of cases such as 'fight', 'fights', 'fighting', etc words that start with 'fight'.
+					# This part where word forms are being searched, looks are cases such as 'fought' which are forms or 'fight' but don't start with 'fight'
+					if word not in each: #don't search the forms that have been covered ('fight', 'fighting', etc)
+						for b in re.finditer(each, book['description']):
+							genre_scores[genre].append(wd[1]) 
+							if b.group(0) not in found:
+								found.append(b.group(0)) #don't append duplicates because that's a waste of space. 
+						# if each in book['description']:
+						# 	genre_scores[genre].append(wd[1])
+						# 	found.append(each)
 
 		# now, calculate score averages	
 		# save score averages as last value in dict for each genre
